@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Karaoke 420</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <%= link_to 'Karaoke 420', root_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%= active_link_to 'Sing', root_path, active: :exclusive, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to 'Songs', songs_path, active: :exclusive, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to 'Singers', singers_path, active: :exclusive, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to 'YouTube', youtubes_path, active: :exclusive, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to 'Playlists', playlists_path, active: :exclusive, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to 'Create new song', new_song_path, active: :exclusive, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to 'Create new playlist', new_playlist_path, active: :exclusive, class: "nav-link" %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main role="main">
+      <div class="container">
+      <%= yield %>
+      </div>
+      <br>
+      <footer class="container">
+        <p>&copy; Tuan Nguyen <%= Time.current.year %></p>
+      </footer>
+    </main>    
+  </body>
+</html>

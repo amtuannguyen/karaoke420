@@ -1,0 +1,15 @@
+<div class="list-group" id="playlistsList">
+<% if !@playlists.nil? %>
+
+  <% @playlists.each do |playlist| %>
+    <a href="<%= playlist_songs_path(playlist) %>" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1 singer-name"><%= playlist.name %></h5>
+        <small><%= pluralize(playlist.songs.count, 'song') %></small>
+      </div>
+    </a>
+  <% end %>
+
+<% end %>
+</div>
+

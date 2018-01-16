@@ -1,0 +1,14 @@
+<% if @singer %>
+  <h1 class="section-title"><%= @singer.name %></h1>
+<% elsif @playlist %>
+  <h1 class="section-title"><%= @playlist.name %></h1>
+<% else %>
+  <h1 class="section-title">Songs</h1>
+  <%= render 'search_form' %>
+  <p>Browse titles starting with</p>
+  <%= render 'atoz_form' %>
+<% end %>
+
+<br>
+
+<%= render 'songs_list' %>

@@ -1,0 +1,15 @@
+<div  id="videosList">
+<% if !@videos.nil? %>
+
+  <% @videos.first(100).each do |video| %>
+  <div class="media">
+    <a data-remote="true" href="/karaoke/add?youtube_id=<%= video.id %>"><img class="align-self-start mr-3" src="<%= video.thumbnail_url %>" alt="thubmnail"></a>
+    <div class="media-body">
+      <a data-remote="true" href="/karaoke/add?youtube_id=<%= video.id %>"><h5 class="mt-0 song-title"><%= video.title %></h5></a>
+      <%= video.channel_title %>
+    </div>
+  </div>
+  <% end %>
+
+<% end %>
+</div>

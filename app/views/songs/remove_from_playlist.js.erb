@@ -1,0 +1,5 @@
+$('body').click();
+<% if !@playlist.nil? %>
+alert("Removed <%= raw @song.title %>");
+$(".list-group-item[data-song='<%= raw @song.id %>']").remove();
+<% end %>

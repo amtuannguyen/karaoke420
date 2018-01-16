@@ -1,0 +1,5 @@
+  <%= form_tag search_songs_path, :method => :get, :class => "my-2 my-lg-0" , :remote => true do %>
+    <div class="form-group">
+    <%= search_field_tag :query, params[:query], :class => "form-control mr-sm-2", :id => "searchQueryField", :placeholder => "Search title or number" %>
+    </div>
+  <% end %>

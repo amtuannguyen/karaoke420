@@ -1,0 +1,5 @@
+  <%= form_tag karaoke_add_path, :method => :get, :class => "my-2 my-lg-0" , :remote => true do %>
+    <div class="form-group">
+    <%= search_field_tag :id, params[:id], :class => "form-control mr-sm-2", :id => "searchQueryField", :placeholder => "Enter song number" %>
+    </div>
+  <% end %>

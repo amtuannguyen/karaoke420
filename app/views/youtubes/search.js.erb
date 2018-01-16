@@ -1,0 +1,5 @@
+$('#videosList').replaceWith('<%= j render 'videos_list' %>');
+$('#searchQueryField').blur();
+if ($("#navbarCollapse").is(":visible")) {
+    $('.navbar-toggler').click();
+}

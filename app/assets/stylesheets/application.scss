@@ -1,0 +1,51 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+@import "bootswatch/cyborg/variables";
+@import "bootstrap";
+@import "bootswatch/cyborg/bootswatch";
+
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+h5.song-title {
+  font-size: 1rem;
+}
+
+h5.singer-name {
+  font-size: 1rem;
+}
+
+h1.section-title {
+  font-size: 2rem;
+}
+
+h2.section-subheading {
+  font-size: 1.1rem;
+}
+
+
+h2.now-playing {
+  font-size: 1rem;
+}
+
+input {
+  font-size: 16px !important;
+}
+
+#videosList .media img {
+  width: 64px;
+}

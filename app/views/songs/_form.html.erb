@@ -1,0 +1,50 @@
+<%= form_with model: @song, local: true  do |form| %>
+  <% if @song.errors.any? %>
+    <div class="alert alert-danger" id="error_explanation" role="alert">
+      <h4 class="alert-heading">Error!</h4>
+      <ul>
+        <% @song.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="form-group">
+    <%= form.label :number %>
+    <%= form.text_field :number, readonly: true, id: :song_number, :class => "form-control"  %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :title%>
+    <%= form.text_field :title , id: :song_title, :class => "form-control"  %>
+  </div>
+ 
+  <div class="form-group">
+    <%= form.label :singer1, "Singer 1"%>
+    <%= form.text_field :singer1 , id: :song_singer1, :class => "form-control"  %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :singer2, "Singer 2" %>
+    <%= form.text_field :singer2 , id: :song_singer2, :class => "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :singer3, "Singer 3"%>
+    <%= form.text_field :singer3 , id: :song_singer3, :class => "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :singer4, "Singer 4" %>
+    <%= form.text_field :singer4 , id: :song_singer4, :class => "form-control" %>
+  </div>
+ 
+  <div class="form-group">
+    <%= form.label :file, "File name" %>
+    <%= form.text_field :file , id: :song_file, :class => "form-control" %>
+  </div>
+    
+  <button type="submit" class="btn btn-primary">Save</button>
+<% end %>
+

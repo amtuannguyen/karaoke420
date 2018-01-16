@@ -1,0 +1,48 @@
+<div class="list-group" id="songsList">
+  <% if @letter.nil? and @query.nil? %>
+    <h2 class="section-subheading">Recently added songs</h2>
+  <% elsif !@letter.nil? %>
+    <h2 class="section-subheading">Titles starting with letter "<%= @letter %>"</h2>
+  <% elsif !@query.nil? %>
+    <h2 class="section-subheading">Titles matching "<%= @query %>"</h2>
+  <% end %>
+  
+<% if !@songs.nil? %>
+
+  <% @songs.each do |song| %>
+  <div class="list-group-item list-group-item-action flex-column align-items-start" data-song="<%= song.id %>">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1 song-title"><%= song.title %></h5>
+      <a class="btn btn-primary btn-sm" data-remote="true" href="<%= karaoke_add_path + "?id=#{song.number}" %>" role="button"><%= song.number.to_s.rjust(4, '0').rjust(5,' ') %></a>
+    </div>
+    <p>
+      <%= song.singer_names %>
+    </p>
+    <div class="btn-toolbar" role="toolbar">
+      <div class="btn-group mr-2" role="group">
+        <a class="btn btn-secondary btn-sm" data-remote="true" href="<%= karaoke_add_path + "?id=#{song.number}" %>" role="button">Sing</a>
+      </div>
+      <div class="btn-group mr-2" role="group">
+        <a class="btn btn-secondary btn-sm" data-remote="false" href="<%= edit_song_path(song) %>" role="button">Edit</a>
+      </div>
+      <div class="btn-group mr-2" role="group">
+        <% if !@personal_playlists.nil? %>
+        <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
+        <div class="dropdown-menu">
+          <% @personal_playlists.each do |p| %>
+            <a class="dropdown-item <%= 'disabled' if (!@playlist.nil? and @playlist.id == p.id) %>" data-remote="true" href="<%= song_add_to_playlist_path(song) + "?playlist_id=#{p.id}"%>"><%= p.name %></a>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+      <div class="btn-group mr-2" role="group">
+        <% if !@playlist.nil? %>
+          <a class="btn btn-secondary btn-sm" data-remote="true" href="<%= song_remove_from_playlist_path(song) + "?playlist_id=#{@playlist.id}"%>">Remove</a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+<% end %>
+</div>

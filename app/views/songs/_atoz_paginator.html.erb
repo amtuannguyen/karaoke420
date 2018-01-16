@@ -1,0 +1,69 @@
+<nav>
+  <ul class="pagination ">
+    <% ('A'..'G').to_a.each do |letter| %>
+      <% if letter == @letter %>
+        <li class="page-item active">
+          <%= link_to letter, songs_path(:letter => letter), class: "page-link" %>
+        </li>
+      <% else %>
+        <li class="page-item">
+          <%= link_to letter, songs_path(:letter => letter), class: "page-link" %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</nav>
+<nav>
+  <ul class="pagination ">
+    <% ('H'..'N').to_a.each do |letter| %>
+      <% if letter == @letter %>
+        <li class="page-item active">
+          <%= link_to letter, songs_path(:letter => letter), class: "page-link" %>
+        </li>
+      <% else %>
+        <li class="page-item">
+          <%= link_to letter, songs_path(:letter => letter), class: "page-link" %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</nav>
+<nav>
+  <ul class="pagination ">
+    <% ('O'..'U').to_a.each do |letter| %>
+      <% if letter == @letter %>
+        <li class="page-item active">
+          <%= link_to letter, songs_path(:letter => letter), class: "page-link" %>
+        </li>
+      <% else %>
+        <li class="page-item">
+          <%= link_to letter, songs_path(:letter => letter), class: "page-link" %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</nav>
+<nav>
+  <ul class="pagination ">
+    <% ('V'..'Z').to_a.each do |letter| %>
+      <% if letter == @letter %>
+        <li class="page-item active">
+          <%= link_to letter, songs_path(:letter => letter), class: "page-link" %>
+        </li>
+      <% else %>
+        <li class="page-item">
+          <%= link_to letter, songs_path(:letter => letter), class: "page-link" %>
+        </li>
+      <% end %>
+    <% end %>
+    <% if @letter.nil? %>
+      <li class="page-item active">
+        <%= link_to 'Number', songs_path, class: "page-link" %>
+      </li>
+    <% else %>
+      <li class="page-item">
+        <%= link_to 'Number', songs_path, class: "page-link" %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

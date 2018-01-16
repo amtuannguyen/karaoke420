@@ -1,0 +1,19 @@
+<%= form_with(model: playlist, local: true) do |form| %>
+  <% if playlist.errors.any? %>
+    <div class="alert alert-danger" id="error_explanation" role="alert">
+      <h4 class="alert-heading">Error!</h4>
+      <ul>
+      <% playlist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :playlist_name , :class => "form-control" %>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save</button>
+<% end %>

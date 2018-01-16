@@ -1,0 +1,48 @@
+<div class="list-group" id="karaokePlaylist1">
+<% if !@playlist.nil? %>
+  <% @playlist.each_with_index do |entry, position| %>
+    <% if position > @player_status["position"]%>
+    <div class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1 song-title"><% if entry["song"].nil? %><%= entry["label"] %><% else %><%= entry["song"].title %><% end %></h5>
+      
+        <% if !entry["song"].nil? %>
+        <a class="btn btn-primary btn-sm" data-remote="true" href="/karaoke/add?id=<%= entry["song"]["number"] %>" role="button"><%= entry["song"]["number"].to_s.rjust(4, '0').rjust(5,' ') %></a>
+        <% end %>
+      </div>
+      <% if !entry["song"].nil? %>
+      <p class="mb-1">
+        <%= entry["song"]["singer_names"] %>
+      </p>
+      <% end%>
+      
+      <div class="btn-toolbar" role="toolbar">
+      <% if !entry["song"].nil? %>
+        <div class="btn-group mr-2" role="group">
+          <a class="btn btn-secondary btn-sm" data-remote="true" href="<%= karaoke_add_path + "?id=#{entry["song"].number}" %>" role="button">Sing</a>
+        </div>
+        <div class="btn-group mr-2" role="group">
+          <a class="btn btn-secondary btn-sm" data-remote="false" href="<%= edit_song_path(entry["song"]) %>" role="button">Edit</a>
+        </div>
+        <div class="btn-group mr-2" role="group">
+          <% if !@personal_playlists.nil? %>
+          <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Save</button>
+          <div class="dropdown-menu">
+            <% @personal_playlists.each do |p| %>
+            <a class="dropdown-item" data-remote="true" href="<%= song_add_to_playlist_path(entry["song"]) + "?playlist_id=#{p.id}"%>"><%= p.name %></a>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+      <% elsif !entry["youtube_video_id"].nil? %>
+        <div class="btn-group mr-2" role="group">
+          <a class="btn btn-secondary btn-sm" data-remote="false" href="<%= new_song_path + "?youtube_video_id=#{entry["youtube_video_id"]}" %>" role="button">Download</a>
+        </div>
+      <% end%>
+      </div>
+    </div>
+    <% end%>
+  <% end %>
+<% end %>
+</div>
+

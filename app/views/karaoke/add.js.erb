@@ -1,0 +1,11 @@
+<% if !@song.nil? %>
+  alert('<%= raw @song.title %>');
+<% elsif !@video.nil? %>
+  alert('<%= raw @video.title %>');
+<% end %> 
+if ($('#karaokePlaylist1').length > 0) {
+    $('#karaokePlaylist1').replaceWith('<%= j render 'playlist' %>');
+    if ($("#navbarCollapse").is(":visible")) {
+        $('.navbar-toggler').click();
+    }
+}

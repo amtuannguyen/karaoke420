@@ -1,0 +1,11 @@
+<div class="btn-group">
+  <button id="atozMenuButton" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    A
+  </button>
+  <div id="atozMenuDropdown" class="dropdown-menu">
+    <% ('A'..'Z').to_a.each do |letter| %>
+      <a data-remote="true" class="dropdown-item" href="<%= browse_singers_path(:letter=>letter) %>"><%= letter %></a>
+    <% end%>
+  </div>
+</div>
+<div class="clearfix"></div>

@@ -1,0 +1,5 @@
+$('#songsList').replaceWith('<%= j render 'songs_list' %>');
+$('#searchQueryField').blur();
+if ($("#navbarCollapse").is(":visible")) {
+    $('.navbar-toggler').click();
+}

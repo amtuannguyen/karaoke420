@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  played_label: MyString
+  played_thumbnail: MyString
+
+two:
+  played_label: MyString
+  played_thumbnail: MyString

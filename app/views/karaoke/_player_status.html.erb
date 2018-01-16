@@ -1,0 +1,17 @@
+<div id="karaokePlayerStatus">
+<% if @player_status["position"] != -1 %>
+  <h2 class="now-playing">
+    Now Playing: 
+    <% if !@playing["title"].nil? %>
+      <%= @playing["title"]  %>
+    <% else %>
+      <%= @playing["label"]  %>
+    <% end %>
+  </h2>
+  <% if !@playing["song"].nil? %>
+  <p>Playing Audio: <%= @player_status["currentaudiostream"]["index"] %>, Karaoke Audio: <%= @playing["song"].audio_stream %></p>
+  <% end%>
+<% else %>
+  <h2 class="now-playing">Nothing is playing.</h2>
+<% end %>
+</div>
