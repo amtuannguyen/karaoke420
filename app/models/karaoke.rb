@@ -134,16 +134,9 @@ class Karaoke < ApplicationRecord
     logger.info "sleeping #{self.kodi_onplay_delay} seconds allowing KODI time to open the streams"
     sleep self.kodi_onplay_delay
     
-    audio_streams_count = -1
-    5.times do |i|
-      logger.info "Polling KODI to find out how many audio streams there are"
-      player_status = get_player_status
-      audio_streams_count = player_status["audiostreams"].count
-      logger.info "Audio streams count: #{audio_streams_count}"
-      break if audio_streams_count >= 1 and audio_streams_count <= 2
-      sleep 1
-      logger.info "Sleeping 1 seconds..."
-    end
+    player_status = get_player_status
+    audio_streams_count = player_status["audiostreams"].count
+    logger.info "Audio streams count: #{audio_streams_count}"
     
     if audio_streams_count > 1
       logger.info "Ensure we got the correct audio stream playing"
@@ -164,7 +157,7 @@ class Karaoke < ApplicationRecord
             status = set_audio_stream(song.audio_stream)
             logger.info status
           
-            logger.info "Sleeping for #{self.kodi_change_audio_delay} seconds"
+            logger.info "Sleeping for #{self.kodi_change_audio_delay} seconds allowing KODI to change audio stream"
             sleep self.kodi_change_audio_delay
           end 
         end
