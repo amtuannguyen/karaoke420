@@ -5,16 +5,10 @@ class KaraokeController < ApplicationController
     karaoke = Karaoke.first!
     karaoke.save_playlist
     karaoke.ensure_correct_audio
-    respond_to do |f|
-      f.html { redirect_to root_url }
-    end
   end
 
   def onstop
     logger.info "Player.OnStop"
-    respond_to do |f|
-      f.html { redirect_to root_url }
-    end
   end
   
   def index
