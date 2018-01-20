@@ -131,30 +131,43 @@ class Karaoke < ApplicationRecord
   end
   
   def ensure_correct_audio
-    logger.info "Ensure we got the correct audio stream playing"
-    playing = get_playing
-    if !playing.nil?
-      song = playing["song"]
-      if !song.nil?
-        logger.info "Song: #{song.number} - #{song.title}"
-        5.times do |i|
-          logger.info "Changing audio stream to #{song.audio_stream}"
-          status = set_audio_stream(song.audio_stream)
-          logger.info status
+    logger.info "sleeping #{self.kodi_onplay_delay} seconds allowing KODI time to open the streams"
+    sleep self.kodi_onplay_delay
+    
+    audio_streams_count = -1
+    5.times do |i|
+      logger.info "Polling KODI to find out how many audio streams there are"
+      player_status = get_player_status
+      audio_streams_count = player_status["audiostreams"].count
+      logger.info "Audio streams count: #{audio_streams_count}"
+      break if audio_streams_count >= 1 and audio_streams_count <= 2
+      sleep 1
+      logger.info "Sleeping 1 seconds..."
+    end
+    
+    if audio_streams_count > 1
+      logger.info "Ensure we got the correct audio stream playing"
+      playing = get_playing
+      if !playing.nil?
+        song = playing["song"]
+        if !song.nil?
+          logger.info "Song: #{song.number} - #{song.title}"
+          5.times do |i|
+            player_status = get_player_status
+            current_audio = player_status["currentaudiostream"]["index"]
+            logger.info "Current audio stream is: #{current_audio}"
+            logger.info "Correct audio stream is: #{song.audio_stream}"
           
-          logger.info "Sleeping for 5 second"
-          sleep 5
+            break if song.audio_stream == current_audio
           
-          logger.info "Woke up, checking player status to make sure audio stream setting is correct"
-          player_status = get_player_status
-          current_audio = player_status["currentaudiostream"]["index"]
-          audio_streams_count = player_status["audiostreams"].count
-          logger.info "Audio streams count: #{audio_streams_count}"
-          logger.info "Current audio stream is: #{current_audio}"
-          logger.info "Correct audio stream is: #{song.audio_stream}"
+            logger.info "Changing audio stream to #{song.audio_stream}"
+            status = set_audio_stream(song.audio_stream)
+            logger.info status
           
-          break if audio_streams_count >= 1 and audio_streams_count <= 2 and song.audio_stream == current_audio
-        end 
+            logger.info "Sleeping for #{self.kodi_change_audio_delay} seconds"
+            sleep self.kodi_change_audio_delay
+          end 
+        end
       end
     end
   end

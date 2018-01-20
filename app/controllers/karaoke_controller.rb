@@ -2,16 +2,14 @@ class KaraokeController < ApplicationController
   
   def onplay
     logger.info "Player.OnPlay"
-    logger.info "Waiting for player to open...sleeping 10 seconds"
-    sleep 10
     karaoke = Karaoke.first!
-    karaoke.ensure_correct_audio
     karaoke.save_playlist
+    karaoke.ensure_correct_audio
     respond_to do |f|
       f.html { redirect_to root_url }
     end
   end
-  
+
   def onstop
     logger.info "Player.OnStop"
     respond_to do |f|
@@ -45,12 +43,6 @@ class KaraokeController < ApplicationController
         end
       end
     end
-    
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @playing = karaoke.get_playing
-    @personal_playlists = Playlist.all.order("name")
-    
     respond_to do |f|
       f.html { redirect_to root_url }
       f.js
@@ -63,25 +55,13 @@ class KaraokeController < ApplicationController
     @player_status = karaoke.get_player_status
     if (@player_status["position"] == -1)
       @playlist = karaoke.get_playlist
-      if @playlist.size > 0 and (karaoke.opening_player == 0 or karaoke.opening_player.nil?)
+      if !@playlist.nil? and @playlist.size > 0
         logger.info "Opening playlist"
-        karaoke.opening_player = 1
-        karaoke.save
         karaoke.open_playlist
-        logger.info "Sleeping 10 seconds waiting for KODI to open the playlist"
-        sleep 10
-        karaoke.opening_player = 0
-        karaoke.save
       end
     else
       karaoke.play_pause
-    end
-    
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @playing = karaoke.get_playing
-    @personal_playlists = Playlist.all.order("name")
-    
+    end    
     respond_to do |f|
       f.html { redirect_to root_url }
       f.js
@@ -90,15 +70,7 @@ class KaraokeController < ApplicationController
   
   def next
     karaoke = Karaoke.first!
-    karaoke.next
-    
-    sleep 10
-    
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @playing = karaoke.get_playing
-    @personal_playlists = Playlist.all.order("name")
-    
+    karaoke.next    
     respond_to do |f|
       f.html { redirect_to root_url }
       f.js
@@ -108,12 +80,6 @@ class KaraokeController < ApplicationController
   def previous
     karaoke = Karaoke.first!
     karaoke.previous
-    
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @playing = karaoke.get_playing
-    @personal_playlists = Playlist.all.order("name")
-    
     respond_to do |f|
       f.html { redirect_to root_url }
       f.js
@@ -123,12 +89,6 @@ class KaraokeController < ApplicationController
   def stop
     karaoke = Karaoke.first!
     karaoke.stop
-    
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @playing = karaoke.get_playing
-    @personal_playlists = Playlist.all.order("name")
-    
     respond_to do |f|
       f.html { redirect_to root_url }
       f.js
@@ -138,12 +98,6 @@ class KaraokeController < ApplicationController
   def audio
     karaoke = Karaoke.first!
     karaoke.toggle_audio_stream
-    
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @playing = karaoke.get_playing
-    @personal_playlists = Playlist.all.order("name")
-    
     respond_to do |f|
       f.html { redirect_to root_url }
       f.js
@@ -153,12 +107,6 @@ class KaraokeController < ApplicationController
   def clear
     karaoke = Karaoke.first!
     karaoke.clear_playlist
-    
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @playing = karaoke.get_playing
-    @personal_playlists = Playlist.all.order("name")
-    
     respond_to do |f|
       f.html { redirect_to root_url }
       f.js
@@ -168,12 +116,6 @@ class KaraokeController < ApplicationController
   def load
     karaoke = Karaoke.first!
     karaoke.load_playlist
-    
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @playing = karaoke.get_playing
-    @personal_playlists = Playlist.all.order("name")
-    
     respond_to do |f|
       f.html { redirect_to root_url }
       f.js

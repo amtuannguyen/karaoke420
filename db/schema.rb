@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111044449) do
+ActiveRecord::Schema.define(version: 20180120192048) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20180111044449) do
     t.string "playlist"
     t.string "youtube_api_key"
     t.integer "opening_player"
+    t.integer "kodi_onplay_delay", default: 10
+    t.integer "kodi_change_audio_delay", default: 5
   end
 
   create_table "playlists", force: :cascade do |t|
