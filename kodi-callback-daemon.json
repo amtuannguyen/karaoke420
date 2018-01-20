@@ -7,7 +7,6 @@
   "callbacks": {
     "Player.OnPlay": [
       {
-        "types": ["movie"],
         "backend": "shell",
         "command": "/usr/bin/curl",
         "arguments": ["http://127.0.0.1:3000/karaoke/onplay"]
@@ -15,7 +14,6 @@
     ],
     "Player.OnStop": [
       {
-        "types": ["movie"],
         "backend": "shell",
         "command": "/usr/bin/curl",
         "arguments": ["http://127.0.0.1:3000/karaoke/onstop"]
