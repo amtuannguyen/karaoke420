@@ -18,11 +18,6 @@ class KaraokeController < ApplicationController
   end
   
   def index
-    karaoke = Karaoke.first!    
-    @playing = karaoke.get_playing
-    @playlist = karaoke.get_playlist
-    @player_status = karaoke.get_player_status
-    @personal_playlists = Playlist.all.order("name")
   end
   
   def add

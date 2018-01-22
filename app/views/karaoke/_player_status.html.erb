@@ -1,3 +1,16 @@
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-2" role="group" aria-label="Player Controls">
+    <a class="btn btn-primary btn-sm player-control" data-remote="true" href="/karaoke/play" role="button">Play</a>
+    <a class="btn btn-primary btn-sm player-control" data-remote="true" href="/karaoke/next" role="button">Next</a>
+    <a class="btn btn-primary btn-sm player-control" data-remote="true" href="/karaoke/stop" role="button">Stop</a>
+    <a class="btn btn-primary btn-sm player-control" data-remote="true" href="/karaoke/audio" role="button">Audio</a>
+    <a class="btn btn-primary btn-sm player-control" data-remote="true" href="/karaoke/clear" role="button">Clear</a>
+    <a class="btn btn-primary btn-sm player-control" data-remote="true" href="/karaoke/load" role="button">Load</a>
+  </div>
+</div>
+
+<br>
+
 <div id="karaokePlayerStatus">
 <% if @player_status["position"] != -1 %>
   <h2 class="now-playing">
@@ -15,3 +28,4 @@
   <h2 class="now-playing">Nothing is playing.</h2>
 <% end %>
 </div>
+

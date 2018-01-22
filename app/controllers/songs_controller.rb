@@ -2,14 +2,14 @@ class SongsController < ApplicationController
   def index
     @personal_playlists = Playlist.all.order('name')
     if !params[:singer_id].nil?
-      @singer = Singer.find(params[:singer_id])
-      if !@singer.nil?
-        @songs = @singer.songs.order('title')
+      @chosen_singer = Singer.find(params[:singer_id])
+      if !@chosen_singer.nil?
+        @songs = @chosen_singer.songs.order('title')
       end
     elsif !params[:playlist_id].nil?
-      @playlist = Playlist.find(params[:playlist_id])
-      if !@playlist.nil?
-        @songs = @playlist.songs.order('title')
+      @chosen_playlist = Playlist.find(params[:playlist_id])
+      if !@chosen_playlist.nil?
+        @songs = @chosen_playlist.songs.order('title')
       end
     elsif params[:letter].nil?
       @listing_recently_added_songs = true

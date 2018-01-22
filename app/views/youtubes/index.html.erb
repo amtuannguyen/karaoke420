@@ -1,3 +1,7 @@
+<%= render 'karaoke/player_status' %>
+
+<br>
+
 <h1 class="section-title">YouTube</h1>
 
 <%= form_tag search_youtubes_path, :method => :get, :class => "my-2 my-lg-0" , :remote => true do %>
@@ -7,4 +11,5 @@
 <% end %>
 
 <br>
+
 <%= render 'videos_list' %>
