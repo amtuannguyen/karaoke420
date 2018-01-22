@@ -12,4 +12,4 @@ App.karaoke = App.cable.subscriptions.create "KaraokeChannel",
         $('#karaokePlaylist1').replaceWith data.playlist
     
     unless data.player_status.nil?
-        $('#karaokePlayerStatus').replaceWith data.player_status
+        $('#playerStatusContainer').replaceWith data.player_status
