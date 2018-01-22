@@ -43,4 +43,6 @@ Rails.application.routes.draw do
   end
   
   root 'karaoke#index'
+  
+  mount ActionCable.server, at: '/cable'
 end

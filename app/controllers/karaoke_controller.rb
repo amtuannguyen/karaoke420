@@ -2,13 +2,19 @@ class KaraokeController < ApplicationController
   
   def onplay
     logger.info "Player.OnPlay"
+    
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist, player_status: render_player_status
+    
     karaoke = Karaoke.first!
     karaoke.save_playlist
     karaoke.ensure_correct_audio
+    
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist, player_status: render_player_status
   end
 
   def onstop
     logger.info "Player.OnStop"
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist, player_status: render_player_status
   end
   
   def index
@@ -37,8 +43,10 @@ class KaraokeController < ApplicationController
         end
       end
     end
+    
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    
     respond_to do |f|
-      f.html { redirect_to root_url }
       f.js
     end
   end
@@ -55,18 +63,20 @@ class KaraokeController < ApplicationController
       end
     else
       karaoke.play_pause
-    end    
+    end
+
     respond_to do |f|
-      f.html { redirect_to root_url }
       f.js
     end
   end
   
   def next
     karaoke = Karaoke.first!
-    karaoke.next    
+    karaoke.next
+    
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    
     respond_to do |f|
-      f.html { redirect_to root_url }
       f.js
     end
   end
@@ -74,8 +84,10 @@ class KaraokeController < ApplicationController
   def previous
     karaoke = Karaoke.first!
     karaoke.previous
+    
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    
     respond_to do |f|
-      f.html { redirect_to root_url }
       f.js
     end
   end
@@ -83,8 +95,10 @@ class KaraokeController < ApplicationController
   def stop
     karaoke = Karaoke.first!
     karaoke.stop
+    
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    
     respond_to do |f|
-      f.html { redirect_to root_url }
       f.js
     end
   end
@@ -93,7 +107,6 @@ class KaraokeController < ApplicationController
     karaoke = Karaoke.first!
     karaoke.toggle_audio_stream
     respond_to do |f|
-      f.html { redirect_to root_url }
       f.js
     end
   end
@@ -101,8 +114,10 @@ class KaraokeController < ApplicationController
   def clear
     karaoke = Karaoke.first!
     karaoke.clear_playlist
+    
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    
     respond_to do |f|
-      f.html { redirect_to root_url }
       f.js
     end
   end
@@ -110,9 +125,27 @@ class KaraokeController < ApplicationController
   def load
     karaoke = Karaoke.first!
     karaoke.load_playlist
+    
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    
     respond_to do |f|
-      f.html { redirect_to root_url }
       f.js
     end
+  end
+  
+  def render_playlist
+    karaoke = Karaoke.first!
+    ApplicationController.render(
+      partial: 'karaoke/playlist',
+      assigns: { playlist: karaoke.get_playlist, player_status: karaoke.get_player_status }
+    )
+  end
+  
+  def render_player_status
+    karaoke = Karaoke.first!
+    ApplicationController.render(
+      partial: 'karaoke/player_status',
+      assigns: { playing: karaoke.get_playing, player_status: karaoke.get_player_status }
+    )
   end
 end
