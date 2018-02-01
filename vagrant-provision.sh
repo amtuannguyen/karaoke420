@@ -7,6 +7,8 @@ sudo timedatectl set-timezone America/Toronto
 wget "https://github.com/pdf/kodi-callback-daemon/releases/download/v1.5.1/kodi-callback-daemon_1.5.1_amd64.deb"
 sudo dpkg -i kodi-callback-daemon_1.5.1_amd64.deb
 
+/vagrant/setup-headless-chrome-testing.sh
+
 ln -s /vagrant karaoke420
 
 cd karaoke420
