@@ -80,10 +80,6 @@ GEM
     delayed_job_active_record (4.1.2)
       activerecord (>= 3.0, < 5.2)
       delayed_job (>= 3.0, < 5)
-    dotenv (2.2.1)
-    dotenv-rails (2.2.1)
-      dotenv (= 2.2.1)
-      railties (>= 3.2, < 5.2)
     erubi (1.7.0)
     execjs (2.7.0)
     faraday (0.13.1)
@@ -234,7 +230,6 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   daemons
   delayed_job_active_record
-  dotenv-rails
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
