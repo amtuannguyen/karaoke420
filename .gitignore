@@ -32,3 +32,4 @@ solr/production/data/
 .env.production 
 .env.test
 .env.development
+config/secrets.yml
