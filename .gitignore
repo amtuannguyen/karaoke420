@@ -28,3 +28,7 @@ solr/pids/production/sunspot-solr-production.pid
 solr/development/data/
 solr/production/data/
 *.log
+.env
+.env.production 
+.env.test
+.env.development

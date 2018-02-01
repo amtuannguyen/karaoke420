@@ -177,7 +177,8 @@ class Karaoke < ApplicationRecord
   
   def get_client
     if @client.nil?
-      @client = Kodi::Client.new(self.kodi_uri, 
+      kodi_uri = ENV['KODI_URL'].blank? ? self.kodi_uri : ENV['KODI_URL']
+      @client = Kodi::Client.new(kodi_uri, 
       {
         "GUI" => ["ShowNotification"], 
         "Player" => ["GetItem", "GetProperties", "Open", "PlayPause", "GoTo", "Stop", "Open", "SetAudioStream"], 
