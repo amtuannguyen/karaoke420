@@ -1,9 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  played_label: MyString
-  played_thumbnail: MyString
-
-two:
-  played_label: MyString
-  played_thumbnail: MyString
+  kodi_uri: "http://localhost:8080/jsonrpc"
+  youtube_api_key: "12343456867667"
+  songs_dir: "/media/karaoke"
+  kodi_onplay_delay: 10
+  kodi_change_audio_delay: 5

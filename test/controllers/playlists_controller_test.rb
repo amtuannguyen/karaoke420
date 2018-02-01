@@ -17,7 +17,7 @@ class PlaylistsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create playlist" do
     assert_difference('Playlist.count') do
-      post playlists_url, params: { playlist: { name: @playlist.name } }
+      post playlists_url, params: { playlist: { name: "Playlist Three" } }
     end
 
     assert_redirected_to playlist_url(Playlist.last)
