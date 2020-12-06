@@ -111,6 +111,11 @@ class Karaoke < ApplicationRecord
     self.playlist = ""
     self.save
   end
+
+  def remove_playlist(position)
+    client = get_client
+    client.Playlist.Remove playlistid:1, position: position
+  end
   
   def toggle_audio_stream
     playing = get_playing
@@ -190,8 +195,8 @@ class Karaoke < ApplicationRecord
   end
   
   def add_library_info(item)
-    return item if item["file"].nil?
-    
+    return item if item["file"].nil? || item["file"].empty?
+
     # check if this is a local file based song
     f = item["file"].sub(self.songs_dir + "/", "")
     song = Song.find_by_file(f)
@@ -212,6 +217,16 @@ class Karaoke < ApplicationRecord
       return item
     else
       youtube_video_id = item["file"].sub("plugin://plugin.video.youtube/play/?video_id=", "")
+      s = youtube_video_id.split('/')[-1]
+      if !s.nil?
+        s = s.split('.')[0]
+        if !s.nil?
+          youtube_video_id = s
+        end
+      end
+      logger.debug("youtube_video_id #{s}")
+      item["label"] = "https://www.youtube.com/watch?v=" + youtube_video_id
+      item["youtube_video_id"] = youtube_video_id
       video = Youtube.get_video(youtube_video_id)
       if !video.nil?
         item["label"] = video.title

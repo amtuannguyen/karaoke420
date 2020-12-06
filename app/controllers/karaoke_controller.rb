@@ -2,22 +2,49 @@ class KaraokeController < ApplicationController
   
   def onplay
     logger.info "Player.OnPlay"
-    
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist, player_status: render_player_status
-    
+
     karaoke = Karaoke.first!
-    karaoke.save_playlist
-    karaoke.ensure_correct_audio
+
+    player_status = karaoke.get_player_status
+    position = player_status["position"]
+    logger.info "player position: #{position}"
     
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist, player_status: render_player_status
+    update_ui
   end
 
   def onstop
     logger.info "Player.OnStop"
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist, player_status: render_player_status
+
+    karaoke = Karaoke.first!
+
+    player_status = karaoke.get_player_status
+    position = player_status["position"]
+    logger.info "player position: #{position}"
+    
+    if position > 0 
+      i = 0
+      while i < position
+        logger.info "removing playlist position #{i}"
+        karaoke.remove_playlist(i)
+        i += 1
+      end 
+    else
+
+    end
+
+    if position == -1 
+      karaoke.clear_playlist
+    end
+
+
+    update_ui
   end
   
   def index
+  end
+
+  def update_ui
+    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist, player_status: render_player_status
   end
   
   def add
@@ -39,7 +66,7 @@ class KaraokeController < ApplicationController
       end
     end
     
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    update_ui
     
     respond_to do |f|
       f.js
@@ -69,7 +96,7 @@ class KaraokeController < ApplicationController
     karaoke = Karaoke.first!
     karaoke.next
     
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    update_ui
     
     respond_to do |f|
       f.js
@@ -80,7 +107,7 @@ class KaraokeController < ApplicationController
     karaoke = Karaoke.first!
     karaoke.previous
     
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    update_ui
     
     respond_to do |f|
       f.js
@@ -91,8 +118,8 @@ class KaraokeController < ApplicationController
     karaoke = Karaoke.first!
     karaoke.stop
     
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
-    
+    update_ui
+
     respond_to do |f|
       f.js
     end
@@ -110,7 +137,7 @@ class KaraokeController < ApplicationController
     karaoke = Karaoke.first!
     karaoke.clear_playlist
     
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
+    update_ui
     
     respond_to do |f|
       f.js
@@ -121,8 +148,8 @@ class KaraokeController < ApplicationController
     karaoke = Karaoke.first!
     karaoke.load_playlist
     
-    ActionCable.server.broadcast 'karaoke_channel', playlist: render_playlist
-    
+    update_ui
+ 
     respond_to do |f|
       f.js
     end
@@ -130,9 +157,10 @@ class KaraokeController < ApplicationController
   
   def render_playlist
     karaoke = Karaoke.first!
+    personal_playlists = Playlist.all.order("name")
     ApplicationController.render(
       partial: 'karaoke/playlist',
-      assigns: { playlist: karaoke.get_playlist, player_status: karaoke.get_player_status }
+      assigns: { playlist: karaoke.get_playlist, player_status: karaoke.get_player_status , personal_playlists: personal_playlists}
     )
   end
   

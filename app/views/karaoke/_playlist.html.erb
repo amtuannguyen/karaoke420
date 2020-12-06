@@ -1,8 +1,8 @@
 <div class="list-group" id="karaokePlaylist1">
 <% if !@playlist.nil? %>
   <% @playlist.each_with_index do |entry, position| %>
-    <% if position > @player_status["position"]%>
-    <div class="list-group-item list-group-item-action flex-column align-items-start">
+    <% if position >= 0 %>
+    <div class="list-group-item list-group-item-action flex-column align-items-start <% if position == @player_status["position"]%>active<% end %>">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1 song-title"><% if entry["song"].nil? %><%= entry["label"] %><% else %><%= entry["song"].title %><% end %></h5>
       

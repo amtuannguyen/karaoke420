@@ -64,3 +64,5 @@ gem 'sunspot_solr'
 gem 'progress_bar'
 gem 'yt'
 gem 'seed_dump'
+
+gem 'dalli'

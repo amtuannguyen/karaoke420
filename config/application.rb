@@ -15,5 +15,7 @@ module Tko
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.active_job.queue_adapter = :delayed_job
+
+    config.cache_store = :memory_store, { size: 64.megabytes }
   end
 end

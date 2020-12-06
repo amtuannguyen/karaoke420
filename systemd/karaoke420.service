@@ -4,10 +4,10 @@ After=remote-fs.target network-online.target
 Wants = network-online.target
 
 [Service]
-User=osmc
-Group=osmc
+User=tuan
+Group=tuan
 Type=simple
-WorkingDirectory=/home/osmc/karaoke420
+WorkingDirectory=/home/tuan/karaoke420
 ExecStart=/bin/bash -lc 'rails server -b 0.0.0.0'
 
 [Install]
